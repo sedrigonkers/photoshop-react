@@ -1,0 +1,67 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+}
+
+ul {
+  padding: 0;
+}
+
+button {
+  background: none;
+  border: none;
+}
+
+.container {
+  height: 100vh;
+  width: 100vw;
+  align-items: center;
+  justify-content: center;
+}
+
+.app-wrapper {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translateY(-50%) translateX(-50%);
+
+  width: 60%;
+  height: 60%;
+  background-color: #282C34;
+  border-radius: 8px;
+  box-shadow: 2px 4px 10px 1px rgba(0, 0, 0, 0.14);
+
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-template-rows: 1fr auto;
+  grid-template-areas:
+    "sidebar image"
+    "sidebar slider";
+
+}
+
+.main-image {
+  grid-area: image;
+  background-image: url('../public/me.jpeg');
+
+  width: 100%;
+  background-position: top center;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.slider-container {
+  margin: 1rem
+}
+
+.slider {
+  grid-area: slider;
+  border: 2px black solid;
+  width: 100%;
+}
+
