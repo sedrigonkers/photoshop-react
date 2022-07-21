@@ -1,4 +1,6 @@
-*,
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600&display=swap');
+
+*
 *::before,
 *::after {
   box-sizing: border-box;
@@ -6,6 +8,7 @@
 
 body {
   margin: 0;
+  background-color: #4e5565;
 }
 
 ul {
@@ -22,46 +25,55 @@ button {
   width: 100vw;
   align-items: center;
   justify-content: center;
+  font-family: 'Open Sans', sans-serif;
 }
 
 .app-wrapper {
+  overflow: hidden;
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translateY(-50%) translateX(-50%);
 
   width: 60%;
-  height: 60%;
-  background-color: #282C34;
-  border-radius: 8px;
+  height: 80%;
+  background-color: #282c34;
+  border-radius: 1rem;
   box-shadow: 2px 4px 10px 1px rgba(0, 0, 0, 0.14);
 
   display: grid;
-  grid-template-columns: auto 1fr;
+  grid-template-columns: auto 30px 1fr;
   grid-template-rows: 1fr auto;
-  grid-template-areas:
-    "sidebar image"
-    "sidebar slider";
-
-}
-
-.main-image {
-  grid-area: image;
-  background-image: url('../public/me.jpeg');
-
-  width: 100%;
-  background-position: top center;
-  background-size: contain;
-  background-repeat: no-repeat;
+  grid-template-areas: "sidebar slider image";
 }
 
 .slider-container {
-  margin: 1rem
+  margin: 1rem;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .slider {
   grid-area: slider;
-  border: 2px black solid;
-  width: 100%;
+  height: 60%;
+  width: 20px;
+  -webkit-appearance: none;
+  appearance: none;
+
+  writing-mode: bt-lr;
+  -webkit-appearance: slider-vertical;
 }
 
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  background-color: #282c34;
+  width: 10px;
+}
+
+.progress {
+  font: 'Open Sans';
+  display: flex;
+  margin-bottom: 1rem;
+}

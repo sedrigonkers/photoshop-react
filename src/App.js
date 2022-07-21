@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import './App.css';
-import './Sidebar.css'
+import Sidebar from './Sidebar/Sidebar';
 import Slider from './Slider'
-import SidebarButton from './SidebarButton';
+import MainImage from './MainImage/MainImage';
 
 const DEFAULT_OPTIONS = [
   {
@@ -27,7 +27,7 @@ const DEFAULT_OPTIONS = [
   },
   {
     name: 'Saturation',
-    property: 'saturation',
+    property: 'saturate',
     value: 100,
     range: {
       min: 0,
@@ -73,9 +73,13 @@ const DEFAULT_OPTIONS = [
       min: 0,
       max: 360
     },
-    unit: 'deg'
+    unit: 'deg',
   },
 ]
+
+function getProgress(option) {
+  return Math.round(option.value / (option.range.max - option.range.min) * 100) + '%'
+}
 
 
 function App() {
@@ -84,49 +88,48 @@ function App() {
   const [options, setOptions] = useState(DEFAULT_OPTIONS)
   const selectedOption = options[selectedOptionIndex]
 
+  function setDefaultOptions() {
+    setOptions(DEFAULT_OPTIONS)
+  }
+
   function handleSldierChange({ target }) {
     setOptions(prevOptions => {
       return prevOptions.map((option, index) => {
-        if (index !== selectedOption) return option
-        return { ...option, value: target.value}
+        if (index !== selectedOptionIndex) return option
+        return { ...option, value: target.value }
       })
     })
   }
 
-  console.log(options[selectedOptionIndex].value)
+  function getImageStyle() {
+    const filters = options.map((option) => `${option.property}(${option.value}${option.unit})`)
+
+    return { filter: filters.join(' ') }
+  }
 
   return (
     <div className="container">
-
       <div className="app-wrapper">
 
-        <div className="main-image"></div>
+        <MainImage getImageStyle={getImageStyle} />
 
-        <div className="sidebar">
-          {options.map((option, index) => {
-            return (
-              <SidebarButton
-                key={index}
-                name={option.name}
-                property={option.property}
-                active={selectedOptionIndex === index}
-                handleClick={() => {
-                  setSelectedOptionIndex(index)
-                }}
-              />
-            )
-          }
-          )}
-        </div>
+        <Sidebar
+          options={options}
+          selectedOptionIndex={selectedOptionIndex}
+          setSelectedOptionIndex={setSelectedOptionIndex}
+          setDefaultOptions={setDefaultOptions}
+        />
 
         <Slider
           min={selectedOption.range.min}
           max={selectedOption.range.max}
           value={selectedOption.value}
           handleChange={handleSldierChange}
+          getProgress={getProgress}
+          progress={getProgress(selectedOption)}
         />
-
       </div>
+
     </div>
   );
 }

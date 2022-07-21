@@ -1,9 +1,28 @@
-import React from 'react'
+import React, { createRef, useState, useEffect } from 'react'
 
-function Slider() {
+function Slider({ min, max, value, handleChange, progress }) {
+
+    const inputRef = createRef()
+    const [sliderProgress, setSliderProgress] = useState(progress);
+
+    useEffect(() => {
+        setSliderProgress(progress)
+    }, [progress])
+
     return (
-        <div className="slider-container">
-            <input type="range" className="slider" />
+        <div ref={inputRef} className="slider-container">
+            <span className="progress">{sliderProgress}</span>
+            <input
+                type="range"
+                orient="vertical"
+                step={0.02}
+                className="slider"
+
+                value={value}
+                min={min}
+                max={max}
+                onChange={handleChange}
+            />
         </div>
     )
 }
