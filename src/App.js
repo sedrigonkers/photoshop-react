@@ -1,8 +1,9 @@
 import React, { useState } from 'react'
 import './App.css';
 import Sidebar from './Sidebar/Sidebar';
-import Slider from './Slider'
-import MainImage from './MainImage/MainImage';
+import Slider from './Slider/Slider'
+// import 'bootstrap/dist/css/bootstrap.css'; // or include from a CDN
+// import 'react-bootstrap-range-slider/dist/react-bootstrap-range-slider.css';
 
 const DEFAULT_OPTIONS = [
   {
@@ -13,8 +14,11 @@ const DEFAULT_OPTIONS = [
       min: 0,
       max: 200
     },
-    unit: '%'
-  },
+    unit: '%',
+    getProgress() {
+      return Math.round(this.value) + '%'
+    }
+   },
   {
     name: 'Contrast',
     property: 'contrast',
@@ -23,7 +27,10 @@ const DEFAULT_OPTIONS = [
       min: 0,
       max: 200
     },
-    unit: '%'
+    unit: '%',
+    getProgress() {
+      return Math.round(this.value) + '%'
+    }
   },
   {
     name: 'Saturation',
@@ -33,7 +40,10 @@ const DEFAULT_OPTIONS = [
       min: 0,
       max: 200
     },
-    unit: '%'
+    unit: '%',
+    getProgress() {
+      return Math.round(this.value) + '%'
+    }
   },
   {
     name: 'Blur',
@@ -43,7 +53,10 @@ const DEFAULT_OPTIONS = [
       min: 0,
       max: 20
     },
-    unit: 'px'
+    unit: 'px',
+    getProgress() {
+      return Math.round(this.value / this.range.max * 100) + '%'
+    }
   },
   {
     name: 'Grayscale',
@@ -53,7 +66,10 @@ const DEFAULT_OPTIONS = [
       min: 0,
       max: 100
     },
-    unit: '%'
+    unit: '%',
+    getProgress() {
+      return Math.round(this.value) + '%'
+    }
   },
   {
     name: 'Sepia',
@@ -63,7 +79,10 @@ const DEFAULT_OPTIONS = [
       min: 0,
       max: 100
     },
-    unit: '%'
+    unit: '%',
+    getProgress() {
+      return Math.round(this.value) + '%'
+    }
   },
   {
     name: 'Hue Rotate',
@@ -74,12 +93,15 @@ const DEFAULT_OPTIONS = [
       max: 360
     },
     unit: 'deg',
+    getProgress() {
+      return Math.round(this.value / this.range.max * 100) + '%'
+    }
   },
 ]
 
-function getProgress(option) {
-  return Math.round(option.value / (option.range.max - option.range.min) * 100) + '%'
-}
+// function getProgress(option) {
+//   return Math.round(option.value / (option.range.max - option.range.min) * 100) + '%'
+// }
 
 
 function App() {
@@ -87,6 +109,9 @@ function App() {
   const [selectedOptionIndex, setSelectedOptionIndex] = useState(0)
   const [options, setOptions] = useState(DEFAULT_OPTIONS)
   const selectedOption = options[selectedOptionIndex]
+
+  const [mainImg, setMainImg] = useState(undefined)
+  const [isImgLoaded, setIsImgLoaded] = useState(false)
 
   function setDefaultOptions() {
     setOptions(DEFAULT_OPTIONS)
@@ -111,23 +136,32 @@ function App() {
     <div className="container">
       <div className="app-wrapper">
 
-        <MainImage getImageStyle={getImageStyle} />
-
         <Sidebar
           options={options}
           selectedOptionIndex={selectedOptionIndex}
           setSelectedOptionIndex={setSelectedOptionIndex}
           setDefaultOptions={setDefaultOptions}
+          setMainImg={setMainImg}
         />
 
-        <Slider
-          min={selectedOption.range.min}
-          max={selectedOption.range.max}
-          value={selectedOption.value}
-          handleChange={handleSldierChange}
-          getProgress={getProgress}
-          progress={getProgress(selectedOption)}
-        />
+        <div className='main-img-screen'>
+
+          <Slider
+            min={selectedOption.range.min}
+            max={selectedOption.range.max}
+            value={selectedOption.value}
+            handleChange={handleSldierChange}
+            progress={selectedOption.getProgress()}
+            isImgLoaded={isImgLoaded}
+          />
+
+          <div className="main-img-wrapper" >
+            <img onLoad={() => setIsImgLoaded(true)} style={getImageStyle()} src={mainImg} />
+          </div>
+
+        </div>
+
+
       </div>
 
     </div>

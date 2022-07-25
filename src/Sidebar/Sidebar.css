@@ -29,6 +29,7 @@
 
   opacity: 0.5;
   transition: border 0.1s;
+  transition: padding 0.1s;
 
   user-select: none;
 
@@ -40,22 +41,25 @@
   width: 100%;
 }
 
-.sidebar-item.sidebar-item:hover {
+.sidebar-item:hover {
   opacity: 1;
   background-color: #3c424d;
   outline: none;
+  padding: 1rem;
+  transition: padding .1s;
 }
 
 .icon {
   display: flex;
   width: 1.5rem;
+  height: 100%;
 }
 
 .active {
   opacity: 1;
   border-left: #ff9696 1px solid;
-  padding-right: calc(0.5rem - 1px);
   background-color: #3c424d;
+  padding: 0.8rem;
 }
 
 .reset {
