@@ -1,7 +1,7 @@
 import React, { createRef, useState, useEffect } from 'react'
 import './Slider.css'
 
-function Slider({ min, max, value, handleChange, progress, isImgLoaded }) {
+function Slider({ min, max, value, handleChange, progress, switchDisable }) {
 
     const inputRef = createRef()
     const [sliderProgress, setSliderProgress] = useState(progress);
@@ -11,14 +11,12 @@ function Slider({ min, max, value, handleChange, progress, isImgLoaded }) {
     }, [progress])
 
     return (
-        <div ref={inputRef} className={`slider-container ${isImgLoaded ? '' : 'disable'}`}>
-            <span className="progress">{sliderProgress}</span>
+        <div ref={inputRef} className={`slider-container ${switchDisable()}`}>
+            <label className="progress">{sliderProgress}</label>
             <input
                 type="range"
-                orient="vertical"
                 step={0.02}
                 className="slider"
-
                 value={value}
                 min={min}
                 max={max}

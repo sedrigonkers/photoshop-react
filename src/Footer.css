@@ -1,0 +1,32 @@
+.footer {
+  height: 55px;
+  display: flex;
+  background: #333842;
+  border-radius: 15px;
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
+}
+
+.footer-items-wrapper {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 5px 10px;
+  justify-content: space-between;
+}
+
+.footer-file-buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.footer-button {
+  padding: 10px;
+  margin: 5px;
+}
+
+.footer .icon {
+  width: 25px;
+}

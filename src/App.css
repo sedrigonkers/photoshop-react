@@ -4,66 +4,89 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+  font-family: "Poppins", sans-serif;
 }
 
 body {
+  display: flex;
+  padding: 10px;
+  min-height: 100vh;
+  align-items: center;
+  justify-content: center;
   background-color: #4e5565;
+}
+
+.container {
+  max-width: 900px;
+  background: #282c34;
+  border-radius: 15px;
+  box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.15);
+  overflow: hidden;
+}
+
+.wrapper {
+  display: flex;
+  margin: 30px 0;
+  min-height: 455px;
+  margin-left: 15px;
+  align-items: center;
+}
+
+.main-img {
+  width: 50vw;
+  flex-grow: 1;
+  display: flex;
+  overflow: hidden;
+  border-radius: 10px;
+  margin: 0 40px;
+  justify-content: center;
+  align-items: center;
+}
+
+.main-img img {
+  max-height: 500px;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.main-img-wrapper {
+  display: flex;
+  border-radius: 10px;
+  overflow: hidden;
 }
 
 button {
   background: none;
   border: none;
+  color: #fff;
 }
 
-.container {
-  height: 100vh;
-  width: 100vw;
-  align-items: center;
-  justify-content: center;
-  font-family: "Open Sans", sans-serif;
+.disable {
+  opacity: 0.5;
+  pointer-events: none;
 }
 
-.app-wrapper {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translateY(-50%) translateX(-50%);
-
-  width: 60%;
-  height: 80%;
-  background-color: #282c34;
-  border-radius: 1rem;
-  box-shadow: 2px 4px 10px 1px rgba(0, 0, 0, 0.14);
-
-  
-  display: grid;
-  grid-template-columns: auto 1fr;
-  grid-template-rows: 1fr auto;
-  grid-template-areas: "sidebar wrapper";
-}
-
-.main-img-screen {
-  grid-area: wrapper;
-
-  width: 100%;
-  height: 100%;
+.icon {
+  width: 25px;
   display: flex;
-  overflow: hidden;
-  position: relative;
+  user-select: none;
 }
 
-.main-img-wrapper {
-  overflow: hidden;
-  border-radius: 6px;
-  height: 100%;
-  width: fit-content;
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
+.disable .icon {
+  opacity: 0.5
 }
 
-.main-img-wrapper img {
-  height: 100%;
-  max-width: 100%;
+.button {
+  border-radius: 5px;
+  background-color: #333842;
+  padding: 5px 10px;
+  transition: all .15s;
+  opacity: 0.5;
+  cursor: pointer
+}
+
+.button:hover {
+  background-color: #3c424d;
+  opacity: 1;
 }

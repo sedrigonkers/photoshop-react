@@ -1,39 +1,30 @@
 .slider-container {
-  margin: 1rem;
   color: #fff;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  align-items: center;
   z-index: 1;
+  flex-grow: 1;
 }
 
 .slider {
-  grid-area: slider;
-  height: 60%;
-  width: 20px;
   -webkit-appearance: none;
   appearance: none;
-
-  writing-mode: bt-lr;
-  -webkit-appearance: slider-vertical;
-  height: 300px;
+  display: flex;
+  grid-area: slider;
+  height: 5px;
+  width: 300px;
+  border-radius: 10px;
 }
 
-.slider::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  background-color: #282c34;
-  width: 10px;
+.slider::-webkit-slider-runnable-track {
+}
+
+.slider::-moz-range-track {
 }
 
 .progress {
-  font: "Open Sans";
+  font-size: 14px;
   font-weight: 500;
-  display: flex;
-  margin-bottom: 1rem;
-  text-align: left;
-}
-
-.disable {
-  opacity: 0.5;
-  pointer-events: none;
+  margin-bottom: 10px;
 }

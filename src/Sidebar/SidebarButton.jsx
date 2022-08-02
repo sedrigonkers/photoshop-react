@@ -1,9 +1,9 @@
 import React from 'react'
 
-function SidebarButton({ property, active, name, handleClick }) {
+function SidebarButton({ active, name, handleClick }) {
     return (
         <button
-            className={`sidebar-item ${active ? 'active' : ''}`}
+            className={`sidebar-item button ${active ? 'active' : ''}`}
             onClick={handleClick}
             title={name}
         >
