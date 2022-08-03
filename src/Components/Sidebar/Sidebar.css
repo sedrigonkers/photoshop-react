@@ -1,6 +1,5 @@
 .sidebar {
-  grid-area: sidebar;
-  background-color: #333842;
+  background-color: var(--bar-background-color);
 
   display: flex;
   justify-content: center;
@@ -28,6 +27,6 @@
 
 .active {
   opacity: 1;
-  border-left: #ff9696 1px solid;
-  background-color: #3c424d;
+  border-left: var(--active-button-border-color) 1px solid;
+  background-color: var(--button-color-hover);
 }

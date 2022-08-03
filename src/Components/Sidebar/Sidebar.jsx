@@ -2,10 +2,10 @@ import React, { useState } from 'react'
 import './Sidebar.css'
 import SidebarButton from './SidebarButton'
 
-function Sidebar({ options, selectedOptionIndex, setSelectedOptionIndex}) {
+function Sidebar({ options, selectedOptionIndex, setSelectedOptionIndex, switchDisable}) {
     return (
-        <div className="sidebar">
-            <div className='sidebar-items-wrapper'>
+        <div className="sidebar ">
+            <div className='sidebar-items-wrappere'>
 
                 {options.map((option, index) => {
                     return (
@@ -15,6 +15,7 @@ function Sidebar({ options, selectedOptionIndex, setSelectedOptionIndex}) {
                             property={option.property}
                             active={selectedOptionIndex === index}
                             handleClick={() => setSelectedOptionIndex(index)}
+                            switchDisable={switchDisable}
                         />
                     )
                 }

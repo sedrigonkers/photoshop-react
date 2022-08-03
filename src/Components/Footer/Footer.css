@@ -1,7 +1,7 @@
 .footer {
   height: 55px;
   display: flex;
-  background: #333842;
+  background: var(--bar-background-color);
   border-radius: 15px;
   border-bottom-left-radius: 15px;
   border-bottom-right-radius: 15px;

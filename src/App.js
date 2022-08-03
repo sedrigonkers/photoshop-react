@@ -1,8 +1,7 @@
-import React, { useState } from 'react'
+import React, { useState, useReducer } from 'react'
 import './App.css';
-import Sidebar from './Sidebar/Sidebar';
-import Slider from './Slider/Slider'
-import './Footer.css'
+import Sidebar from './Components/Sidebar/Sidebar';
+import Footer from './Components/Footer/Footer'
 
 const DEFAULT_OPTIONS = [
   {
@@ -101,23 +100,34 @@ const DEFAULT_OPTIONS = [
 
 function App() {
 
-  const [selectedOptionIndex, setSelectedOptionIndex] = useState(0)
   const [options, setOptions] = useState(DEFAULT_OPTIONS)
+
+  const [selectedOptionIndex, setSelectedOptionIndex] = useState(0)
   const selectedOption = options[selectedOptionIndex]
 
   const [mainImg, setMainImg] = useState(undefined)
   const [isImgLoaded, setIsImgLoaded] = useState(false)
 
-  const imgRef = React.createRef()
+  const initialState = {
+    selectedOptionIndex: 0,
+    selectedOption: options[selectedOptionIndex],
+    mainImg: undefined,
+    isImgLoaded: false,
+
+  }
+  const [reducer, dispatch] = uesReducer(initialState)
+
+  const imgRef = React.createRef()  // Refs
   const canvasRef = React.createRef()
   const downloadLinkRef = React.createRef()
   const inputRef = React.createRef()
 
-  function setDefaultOptions() {
+
+  function setDefaultOptions() {  // Sets default options, when press button "Reset Filters"
     setOptions(DEFAULT_OPTIONS)
   }
 
-  function handleSldierChange({ target }) {
+  function handleSldierChange({ target }) {  // Changes selected option value, when slider mooves
     setOptions(prevOptions => {
       return prevOptions.map((option, index) => {
         if (index !== selectedOptionIndex) return option
@@ -126,13 +136,12 @@ function App() {
     })
   }
 
-  function getImageStyle() {
+  function getImageStyle() {  // Applies css filters to main image
     const filters = options.map((option) => `${option.property}(${option.value}${option.unit})`)
-
     return { filter: filters.join(' ') }
   }
 
-  function saveImage() {
+  function saveImage() {  // When press "Save Photo" button
     const mainImg = imgRef.current
     const canvas = canvasRef.current
     const downloadLink = downloadLinkRef.current
@@ -151,22 +160,22 @@ function App() {
     downloadLink.click()
   }
 
-  function openFileExplorer() {
+  function openFileExplorer() { // When press button "Open File"
     inputRef.current.click()
   }
 
-  function loadImage() {
+  function loadImage() {  // When open a new file through file input
     const file = inputRef.current.files[0]
     if (!file) return
     setMainImg(URL.createObjectURL(file))
   }
 
-  function onImgLoad() {
+  function onImgLoad() { // When image is loaded on the screen
     setIsImgLoaded(true)
     setDefaultOptions()
   }
-  
-  const switchDisable = () => isImgLoaded ? '' : 'disable'
+
+  const switchDisable = () => isImgLoaded ? '' : 'disable' // Defines "disable" css class if image hasn't loaded yet
 
   return (
     <div className="container">
@@ -177,6 +186,7 @@ function App() {
           selectedOptionIndex={selectedOptionIndex}
           setSelectedOptionIndex={setSelectedOptionIndex}
           setDefaultOptions={setDefaultOptions}
+          switchDisable={switchDisable}
         />
 
         <div className='main-img'>
@@ -188,33 +198,16 @@ function App() {
         </div>
 
       </div>
-      <div className="footer">
-        <div className="footer-items-wrapper">
-          <button className={`footer-button button ${switchDisable()}`} onClick={setDefaultOptions} title="Reset filters">
-            <img src={"./icons/reset.png"} className="icon" />
-          </button>
-          <Slider
-            min={selectedOption.range.min}
-            max={selectedOption.range.max}
-            value={selectedOption.value}
-            handleChange={handleSldierChange}
-            progress={selectedOption.getProgress()}
-            switchDisable={switchDisable}
-          />
-          <input
-            onChange={loadImage}
-            ref={inputRef}
-            type="file"
-            className="file-input"
-            accept="image/*"
-            hidden
-          />
-          <div className="footer-file-buttons">
-            <button className="footer-button button upload" onClick={openFileExplorer} title="Choose a photo"><img className="icon" src="./icons/upload.png" /></button>
-            <button className={`footer-button button download ${switchDisable()}`} onClick={saveImage} title="Save edited photo"><img className="icon" src="./icons/download.png" /></button>
-          </div>
-        </div>
-      </div>
+      <Footer
+        setDefaultOptions={setDefaultOptions}
+        selectedOption={selectedOption}
+        loadImage={loadImage}
+        inputRef={inputRef}
+        openFileExplorer={openFileExplorer}
+        saveImage={saveImage}
+        handleSldierChange={handleSldierChange}
+        switchDisable={switchDisable}
+      />
     </div>
   );
 }
