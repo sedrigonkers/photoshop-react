@@ -1,6 +1,7 @@
 import React, { useRef, useReducer } from 'react'
 import Sidebar from './Components/Sidebar/Sidebar';
 import Footer from './Components/Footer/Footer'
+import Tip from './Components/Tip/Tip'
 import { DEFAULT_OPTIONS } from './store/DefaultOptions'
 
 import './App.css';
@@ -99,10 +100,7 @@ function App() {
 
         <div className='img-container'>
 
-          {/* <div className='choose-image'>
-            <img src='./choose.png'></img>
-            <p>Choose image to edit</p>
-          </div> */}
+          {!state.isImgLoaded && <Tip />}
 
           <div className='img-wrapper'>
             <img

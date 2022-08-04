@@ -9,26 +9,16 @@
 }
 
 .slider {
-  /* -webkit-appearance: none;
-  appearance: none; */
   display: flex;
   grid-area: slider;
   height: 5px;
   width: 300px;
   border-radius: 10px;
-  /* margin-bottom: 5px; */
 }
-
-/* .slider::-webkit-slider-runnable-track {
-}
-
-.slider::-moz-range-track {
-} */
 
 .progress {
   width: 5rem;
   text-align: center;
   font-size: 14px;
   font-weight: 500;
-  /* margin-bottom: 10px; */
 }

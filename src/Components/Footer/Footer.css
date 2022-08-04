@@ -41,3 +41,22 @@
 .footer .icon {
   width: 25px;
 }
+
+.highlight-button {
+  opacity: 1;
+  animation: highlight-button 2s infinite;
+  transition: all var(--transition-duration);
+}
+
+.highlight-button:hover {
+  animation-play-state: paused;
+}
+
+@keyframes highlight-button {
+  50% {
+    background-color: var(--button-color-hover);
+  }
+  100% {
+    background-color: var(--button-color);
+  }
+}

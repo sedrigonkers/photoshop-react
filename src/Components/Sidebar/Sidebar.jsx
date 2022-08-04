@@ -13,6 +13,7 @@ function Sidebar({ options, selectedOptionIndex, dispatch, disableButtons}) {
                             key={index}
                             index={index}
                             name={option.name}
+                            icon={option.icon}
                             property={option.property}
                             active={selectedOptionIndex === index}
                             dispatch={dispatch}

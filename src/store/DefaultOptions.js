@@ -8,6 +8,7 @@ export const DEFAULT_OPTIONS = [
         max: 200
       },
       unit: '%',
+      icon: './assets/icons/brightness.png',
       getProgress() {
         return Math.round(this.value) + '%'
       }
@@ -21,6 +22,7 @@ export const DEFAULT_OPTIONS = [
         max: 200
       },
       unit: '%',
+      icon: './assets/icons/contrast.png',
       getProgress() {
         return Math.round(this.value) + '%'
       }
@@ -34,6 +36,7 @@ export const DEFAULT_OPTIONS = [
         max: 200
       },
       unit: '%',
+      icon: './assets/icons/saturation.png',
       getProgress() {
         return Math.round(this.value) + '%'
       }
@@ -47,6 +50,7 @@ export const DEFAULT_OPTIONS = [
         max: 20
       },
       unit: 'px',
+      icon: './assets/icons/blur.png',
       getProgress() {
         return Math.round(this.value / this.range.max * 100) + '%'
       }
@@ -60,6 +64,7 @@ export const DEFAULT_OPTIONS = [
         max: 100
       },
       unit: '%',
+      icon: './assets/icons/grayscale.png',
       getProgress() {
         return Math.round(this.value) + '%'
       }
@@ -73,6 +78,7 @@ export const DEFAULT_OPTIONS = [
         max: 100
       },
       unit: '%',
+      icon: './assets/icons/sepia.png',
       getProgress() {
         return Math.round(this.value) + '%'
       }
@@ -86,6 +92,7 @@ export const DEFAULT_OPTIONS = [
         max: 360
       },
       unit: 'deg',
+      icon: './assets/icons/hue-rotate.png',
       getProgress() {
         return Math.round(this.value / this.range.max * 100) + '%'
       }

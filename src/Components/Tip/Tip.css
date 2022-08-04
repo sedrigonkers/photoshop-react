@@ -1,0 +1,12 @@
+.choose-image {
+  text-align: center;
+  width: 40%;
+}
+
+.choose-image p {
+  margin-top: 15px;
+}
+
+.choose-image img {
+  width: 100%;
+}
