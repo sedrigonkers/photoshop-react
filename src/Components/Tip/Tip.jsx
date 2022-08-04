@@ -4,7 +4,7 @@ import './Tip.css'
 const Tip = () => {
     return (
         <div className='choose-image'>
-            <img src='./assets/choose-image.svg'></img>
+            <img src='./assets/icons/choose-image.svg'></img>
             <p>Choose Image to Edit</p>
         </div>
     )

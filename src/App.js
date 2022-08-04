@@ -2,7 +2,7 @@ import React, { useRef, useReducer } from 'react'
 import Sidebar from './Components/Sidebar/Sidebar';
 import Footer from './Components/Footer/Footer'
 import Tip from './Components/Tip/Tip'
-import { DEFAULT_OPTIONS } from './store/DefaultOptions'
+import { DEFAULT_OPTIONS } from './state/DefaultOptions'
 
 import './App.css';
 

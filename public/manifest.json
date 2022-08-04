@@ -1,0 +1,9 @@
+{
+    "name": "Photo Studio",
+    "short_name": "PhotoStudio",
+    "start_url": "/index.html",
+    "display": "standalone",
+    "background_color": "#4e5565",
+    "theme_color": "#282c34",
+    "orientation": "landscape"
+}
