@@ -1,0 +1,24 @@
+.slider-container {
+  color: #fff;
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: center;
+  align-items: center;
+  z-index: 1;
+  flex-grow: 1;
+}
+
+.slider {
+  display: flex;
+  grid-area: slider;
+  height: 5px;
+  width: 300px;
+  border-radius: 10px;
+}
+
+.progress {
+  width: 5rem;
+  text-align: center;
+  font-size: 14px;
+  font-weight: 500;
+}
