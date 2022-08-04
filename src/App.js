@@ -1,212 +1,135 @@
-import React, { useState, useReducer } from 'react'
-import './App.css';
+import React, { useRef, useReducer } from 'react'
 import Sidebar from './Components/Sidebar/Sidebar';
 import Footer from './Components/Footer/Footer'
+import { DEFAULT_OPTIONS } from './store/DefaultOptions'
 
-const DEFAULT_OPTIONS = [
-  {
-    name: 'Brightness',
-    property: 'brightness',
-    value: 100,
-    range: {
-      min: 0,
-      max: 200
-    },
-    unit: '%',
-    getProgress() {
-      return Math.round(this.value) + '%'
-    }
-  },
-  {
-    name: 'Contrast',
-    property: 'contrast',
-    value: 100,
-    range: {
-      min: 0,
-      max: 200
-    },
-    unit: '%',
-    getProgress() {
-      return Math.round(this.value) + '%'
-    }
-  },
-  {
-    name: 'Saturation',
-    property: 'saturate',
-    value: 100,
-    range: {
-      min: 0,
-      max: 200
-    },
-    unit: '%',
-    getProgress() {
-      return Math.round(this.value) + '%'
-    }
-  },
-  {
-    name: 'Blur',
-    property: 'blur',
-    value: 0,
-    range: {
-      min: 0,
-      max: 20
-    },
-    unit: 'px',
-    getProgress() {
-      return Math.round(this.value / this.range.max * 100) + '%'
-    }
-  },
-  {
-    name: 'Grayscale',
-    property: 'grayscale',
-    value: 0,
-    range: {
-      min: 0,
-      max: 100
-    },
-    unit: '%',
-    getProgress() {
-      return Math.round(this.value) + '%'
-    }
-  },
-  {
-    name: 'Sepia',
-    property: 'sepia',
-    value: 0,
-    range: {
-      min: 0,
-      max: 100
-    },
-    unit: '%',
-    getProgress() {
-      return Math.round(this.value) + '%'
-    }
-  },
-  {
-    name: 'Hue Rotate',
-    property: 'hue-rotate',
-    value: 0,
-    range: {
-      min: 0,
-      max: 360
-    },
-    unit: 'deg',
-    getProgress() {
-      return Math.round(this.value / this.range.max * 100) + '%'
-    }
-  },
-]
+import './App.css';
 
 
 function App() {
 
-  const [options, setOptions] = useState(DEFAULT_OPTIONS)
+  const imgRef = useRef()
+  const canvasRef = useRef()
+  const downloadLinkRef = useRef()
+  const inputRef = useRef()
 
-  const [selectedOptionIndex, setSelectedOptionIndex] = useState(0)
-  const selectedOption = options[selectedOptionIndex]
 
-  const [mainImg, setMainImg] = useState(undefined)
-  const [isImgLoaded, setIsImgLoaded] = useState(false)
+  function reducer(state, action) {
+    switch (action.type) {
+
+      case 'reset-filters':
+        return { ...state, options: DEFAULT_OPTIONS }
+
+      case 'handle-slider-change':
+        return {
+          ...state,
+          options:
+            state.options.map((option, index) => {
+              if (index !== state.selectedOptionIndex) return option
+              return { ...option, value: action.payload.value }
+            })
+        }
+
+      case 'image-loaded':
+        return { ...state, options: DEFAULT_OPTIONS, disableButtons: false, isImgLoaded: true }
+
+      case 'set-selected-option':
+        return { ...state, selectedOptionIndex: action.payload.index }
+
+      case 'open-file-explorer':
+        inputRef.current.click()
+        return state
+
+      case 'image-changed':
+        const file = inputRef.current.files[0]
+        if (!file) return state
+        return { ...state, mainImg: { name: inputRef.current.files[0].name, src: URL.createObjectURL(file) } }
+
+      case 'save-image':
+        const mainImg = imgRef.current
+        const canvas = canvasRef.current
+        const downloadLink = downloadLinkRef.current
+
+        const ctx = canvas.getContext("2d")
+        canvas.width = mainImg.naturalWidth
+        canvas.height = mainImg.naturalHeight
+
+        const filters = state.options.map((option) => `${option.property}(${option.value}${option.unit})`)
+
+        ctx.filter = filters.join(' ')
+        ctx.drawImage(mainImg, 0, 0, canvas.width, canvas.height)
+
+        downloadLink.download = state.mainImg.name || 'image'
+        downloadLink.href = canvas.toDataURL()
+        downloadLink.click()
+
+      default:
+        return state
+    }
+  }
 
   const initialState = {
     selectedOptionIndex: 0,
-    selectedOption: options[selectedOptionIndex],
-    mainImg: undefined,
+    mainImg: {
+      src: undefined,
+      name: 'image'
+    },
     isImgLoaded: false,
-
-  }
-  const [reducer, dispatch] = uesReducer(initialState)
-
-  const imgRef = React.createRef()  // Refs
-  const canvasRef = React.createRef()
-  const downloadLinkRef = React.createRef()
-  const inputRef = React.createRef()
-
-
-  function setDefaultOptions() {  // Sets default options, when press button "Reset Filters"
-    setOptions(DEFAULT_OPTIONS)
+    disableButtons: true,
+    options: DEFAULT_OPTIONS,
+    getSelectedOption() { return this.options[this.selectedOptionIndex] },
+    getImageStyle() {  // Applies css filters to main image
+      const filters = this.options.map((option) => `${option.property}(${option.value}${option.unit})`)
+      return { filter: filters.join(' ') }
+    },
   }
 
-  function handleSldierChange({ target }) {  // Changes selected option value, when slider mooves
-    setOptions(prevOptions => {
-      return prevOptions.map((option, index) => {
-        if (index !== selectedOptionIndex) return option
-        return { ...option, value: target.value }
-      })
-    })
-  }
-
-  function getImageStyle() {  // Applies css filters to main image
-    const filters = options.map((option) => `${option.property}(${option.value}${option.unit})`)
-    return { filter: filters.join(' ') }
-  }
-
-  function saveImage() {  // When press "Save Photo" button
-    const mainImg = imgRef.current
-    const canvas = canvasRef.current
-    const downloadLink = downloadLinkRef.current
-
-    const ctx = canvas.getContext("2d")
-    canvas.width = mainImg.naturalWidth
-    canvas.height = mainImg.naturalHeight
-
-    const filters = options.map((option) => `${option.property}(${option.value}${option.unit})`)
-
-    ctx.filter = filters.join(' ')
-    ctx.drawImage(mainImg, 0, 0, canvas.width, canvas.height)
-
-    downloadLink.download = "image.jpg"
-    downloadLink.href = canvas.toDataURL()
-    downloadLink.click()
-  }
-
-  function openFileExplorer() { // When press button "Open File"
-    inputRef.current.click()
-  }
-
-  function loadImage() {  // When open a new file through file input
-    const file = inputRef.current.files[0]
-    if (!file) return
-    setMainImg(URL.createObjectURL(file))
-  }
-
-  function onImgLoad() { // When image is loaded on the screen
-    setIsImgLoaded(true)
-    setDefaultOptions()
-  }
-
-  const switchDisable = () => isImgLoaded ? '' : 'disable' // Defines "disable" css class if image hasn't loaded yet
+  const [state, dispatch] = useReducer(reducer, initialState)
 
   return (
     <div className="container">
       <div className="wrapper">
 
         <Sidebar
-          options={options}
-          selectedOptionIndex={selectedOptionIndex}
-          setSelectedOptionIndex={setSelectedOptionIndex}
-          setDefaultOptions={setDefaultOptions}
-          switchDisable={switchDisable}
+          options={state.options}
+          selectedOptionIndex={state.selectedOptionIndex}
+          disableButtons={state.disableButtons}
+          dispatch={dispatch}
         />
 
-        <div className='main-img'>
-          <div className='main-img-wrapper'>
-            <img ref={imgRef} onLoad={onImgLoad} style={getImageStyle()} src={mainImg} />
+        <div className='img-container'>
+
+          {/* <div className='choose-image'>
+            <img src='./choose.png'></img>
+            <p>Choose image to edit</p>
+          </div> */}
+
+          <div className='img-wrapper'>
+            <img
+              ref={imgRef}
+              onLoad={() => dispatch({ type: 'image-loaded' })}
+              style={state.getImageStyle()}
+              src={state.mainImg.src}
+            />
           </div>
           <canvas hidden ref={canvasRef}></canvas>
           <a hidden ref={downloadLinkRef}></a>
+          <input
+            type="file"
+            className="file-input"
+            accept="image/*"
+            onChange={() => dispatch({ type: 'image-changed' })}
+            ref={inputRef}
+            hidden
+          />
         </div>
 
       </div>
       <Footer
-        setDefaultOptions={setDefaultOptions}
-        selectedOption={selectedOption}
-        loadImage={loadImage}
+        dispatch={dispatch}
+        selectedOption={state.getSelectedOption()}
         inputRef={inputRef}
-        openFileExplorer={openFileExplorer}
-        saveImage={saveImage}
-        handleSldierChange={handleSldierChange}
-        switchDisable={switchDisable}
+        disableButtons={state.disableButtons}
       />
     </div>
   );

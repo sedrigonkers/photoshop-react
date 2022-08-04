@@ -1,8 +1,8 @@
-import React, { useState } from 'react'
-import './Sidebar.css'
+import React from 'react'
 import SidebarButton from './SidebarButton'
+import './Sidebar.css'
 
-function Sidebar({ options, selectedOptionIndex, setSelectedOptionIndex, switchDisable}) {
+function Sidebar({ options, selectedOptionIndex, dispatch, disableButtons}) {
     return (
         <div className="sidebar ">
             <div className='sidebar-items-wrappere'>
@@ -11,11 +11,12 @@ function Sidebar({ options, selectedOptionIndex, setSelectedOptionIndex, switchD
                     return (
                         <SidebarButton
                             key={index}
+                            index={index}
                             name={option.name}
                             property={option.property}
                             active={selectedOptionIndex === index}
-                            handleClick={() => setSelectedOptionIndex(index)}
-                            switchDisable={switchDisable}
+                            dispatch={dispatch}
+                            disableButtons={disableButtons}
                         />
                     )
                 }

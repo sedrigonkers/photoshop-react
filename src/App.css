@@ -5,6 +5,7 @@
   margin: 0;
   padding: 0;
   font-family: "Poppins", sans-serif;
+  color: #d9d9d9
 }
 
 :root {
@@ -14,6 +15,7 @@
   --button-color: var(--bar-background-color);
   --button-color-hover: #3c424d;
   --active-button-border-color: #ff9696;
+  --transition-duration: 0.1s;
 }
 
 body {
@@ -35,31 +37,31 @@ body {
 
 .wrapper {
   display: flex;
-  margin: 30px 0;
+  margin: 30px 15px;
   min-height: 455px;
-  margin-left: 15px;
   align-items: center;
 }
 
-.main-img {
+.img-container {
   width: 50vw;
   flex-grow: 1;
   display: flex;
   overflow: hidden;
   border-radius: 10px;
-  margin: 0 40px;
+  margin: 0 30px;
+  margin-right: 15px;
   justify-content: center;
   align-items: center;
 }
 
-.main-img img {
+.img-wrapper img {
   max-height: 500px;
   width: 100%;
   height: 100%;
   object-fit: contain;
 }
 
-.main-img-wrapper {
+.img-wrapper {
   display: flex;
   border-radius: 10px;
   overflow: hidden;
@@ -86,17 +88,22 @@ button {
   opacity: 0.5;
 }
 
-.button {
-  border-radius: 5px;
-  background-color: var(--button-color);
-  padding: 5px 10px;
-  transition: all 0.15s;
-  opacity: 0.5;
-  cursor: pointer;
-  user-select: none;
+.tip-text {
+  margin: 1rem;
+  text-align: justify;
+  width: 100%;
 }
 
-.button:hover {
-  background-color: var(--button-color-hover);
+.highlight-button {
+  border: 2px #d9d9d9 solid;
   opacity: 1;
+}
+
+.choose-image {
+  width: 40%;
+  text-align: center;
+}
+
+.choose-image p {
+  margin-top: 15px
 }

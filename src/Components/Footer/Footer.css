@@ -23,8 +23,19 @@
 }
 
 .footer-button {
-  padding: 10px;
-  margin: 5px;
+  margin: 0 5px;
+  padding: 5px 10px;
+  background-color: var(--button-color);
+  opacity: 0.5;
+  transition: all var(--transition-duration);
+  border-radius: 5px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.footer-button:hover {
+  background-color: var(--button-color-hover);
+  opacity: 1;
 }
 
 .footer .icon {
