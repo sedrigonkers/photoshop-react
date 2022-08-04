@@ -1,7 +1,7 @@
 import React from 'react'
 import './Tip.css'
 
-const Tip = () => {
+function Tip() {
     return (
         <div className='choose-image'>
             <img src='./assets/icons/choose-image.svg'></img>

@@ -1,10 +1,12 @@
 import React, { useRef, useReducer } from 'react'
+
+import MainImg from './Components/MainImg/MainImg';
 import Sidebar from './Components/Sidebar/Sidebar';
 import Footer from './Components/Footer/Footer'
-import Tip from './Components/Tip/Tip'
+import './App.css';
+
 import { DEFAULT_OPTIONS } from './state/DefaultOptions'
 
-import './App.css';
 
 
 function App() {
@@ -98,29 +100,16 @@ function App() {
           dispatch={dispatch}
         />
 
-        <div className='img-container'>
-
-          {!state.isImgLoaded && <Tip />}
-
-          <div className='img-wrapper'>
-            <img
-              ref={imgRef}
-              onLoad={() => dispatch({ type: 'image-loaded' })}
-              style={state.getImageStyle()}
-              src={state.mainImg.src}
-            />
-          </div>
-          <canvas hidden ref={canvasRef}></canvas>
-          <a hidden ref={downloadLinkRef}></a>
-          <input
-            type="file"
-            className="file-input"
-            accept="image/*"
-            onChange={() => dispatch({ type: 'image-changed' })}
-            ref={inputRef}
-            hidden
-          />
-        </div>
+        <MainImg 
+          dispatch={dispatch}
+          isImgLoaded={state.isImgLoaded}
+          imgRef={imgRef}
+          canvasRef={canvasRef}
+          downloadLinkRef={downloadLinkRef}
+          inputRef={inputRef}
+          getImageStyle={state.getImageStyle()}
+          mainImg={state.mainImg}
+        />
 
       </div>
       <Footer

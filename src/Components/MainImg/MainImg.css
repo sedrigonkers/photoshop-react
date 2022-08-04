@@ -1,0 +1,24 @@
+.img-container {
+  width: 50vw;
+  flex-grow: 1;
+  display: flex;
+  overflow: hidden;
+  border-radius: 10px;
+  margin: 0 30px;
+  margin-right: 15px;
+  justify-content: center;
+  align-items: center;
+}
+
+.img-wrapper img {
+  max-height: 500px;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.img-wrapper {
+  display: flex;
+  border-radius: 10px;
+  overflow: hidden;
+}

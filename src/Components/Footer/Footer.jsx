@@ -2,7 +2,7 @@ import React from 'react'
 import './Footer.css'
 import Slider from './Slider/Slider'
 
-const Footer = ({ selectedOption, dispatch, disableButtons }) => {
+function Footer({ selectedOption, dispatch, disableButtons }) {
     return (
         <div className="footer">
             <div className="footer-items-wrapper">
@@ -26,7 +26,7 @@ const Footer = ({ selectedOption, dispatch, disableButtons }) => {
                     </button>
                     <button
                         className={`footer-button button download ${disableButtons && 'disable'}`}
-                        onClick={() => dispatch({type: 'save-image'})}
+                        onClick={() => dispatch({ type: 'save-image' })}
                         title="Save edited photo">
                         <img className="icon" src="./assets/icons/download.png" />
                     </button>
