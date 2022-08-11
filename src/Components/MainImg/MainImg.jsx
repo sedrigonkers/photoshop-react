@@ -2,11 +2,11 @@ import React from 'react'
 import Tip from '../Tip/Tip'
 import './MainImg.css'
 
-function MainImg({ isImgLoaded, imgRef, dispatch, getImageStyle, mainImg, canvasRef, downloadLinkRef, inputRef }) {
+function MainImg({ showStartTip, imgRef, dispatch, getImageStyle, mainImg, canvasRef, downloadLinkRef, inputRef }) {
     return (
         <div className='img-container'>
 
-            {!isImgLoaded && <Tip />}
+            {showStartTip && <Tip />}
 
             <div className='img-wrapper' >
                 <img

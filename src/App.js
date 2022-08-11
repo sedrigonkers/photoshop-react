@@ -34,7 +34,7 @@ function App() {
         }
 
       case 'image-loaded':
-        return { ...state, options: DEFAULT_OPTIONS, disableButtons: false, isImgLoaded: true }
+        return { ...state, options: DEFAULT_OPTIONS, disableButtons: false}
 
       case 'set-selected-option':
         return { ...state, selectedOptionIndex: action.payload.index }
@@ -46,7 +46,7 @@ function App() {
       case 'image-changed':
         const file = inputRef.current.files[0]
         if (!file) return state
-        return { ...state, mainImg: { name: inputRef.current.files[0].name, src: URL.createObjectURL(file) } }
+        return { ...state, showStartTip: false, mainImg: { name: inputRef.current.files[0].name, src: URL.createObjectURL(file) } }
 
       case 'save-image':
         const mainImg = imgRef.current
@@ -77,8 +77,8 @@ function App() {
       src: undefined,
       name: 'image'
     },
-    isImgLoaded: false,
     disableButtons: true,
+    showStartTip: true,
     options: DEFAULT_OPTIONS,
     getSelectedOption() { return this.options[this.selectedOptionIndex] },
     getImageStyle() {  // Applies css filters to main image
@@ -103,6 +103,7 @@ function App() {
         <MainImg 
           dispatch={dispatch}
           isImgLoaded={state.isImgLoaded}
+          showStartTip={state.showStartTip}
           imgRef={imgRef}
           canvasRef={canvasRef}
           downloadLinkRef={downloadLinkRef}
