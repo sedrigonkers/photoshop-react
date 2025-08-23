@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "/photoshop-react/static/css/main.ccd78e48.css",
+    "main.js": "/photoshop-react/static/js/main.acc4b38f.js",
+    "static/media/Poppins-Regular.ttf": "/photoshop-react/static/media/Poppins-Regular.35d26b781dc5fda684cc.ttf",
+    "static/media/Poppins-Medium.ttf": "/photoshop-react/static/media/Poppins-Medium.673ed42382ab264e0bf5.ttf",
+    "static/media/Poppins-SemiBold.ttf": "/photoshop-react/static/media/Poppins-SemiBold.ac8d04b620e54be9b0f0.ttf",
+    "index.html": "/photoshop-react/index.html",
+    "main.ccd78e48.css.map": "/photoshop-react/static/css/main.ccd78e48.css.map",
+    "main.acc4b38f.js.map": "/photoshop-react/static/js/main.acc4b38f.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.ccd78e48.css",
+    "static/js/main.acc4b38f.js"
+  ]
+}
